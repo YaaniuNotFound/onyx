@@ -471,6 +471,18 @@ export function getSourceMetadata(sourceType: ValidSources): SourceMetadata {
   return fillSourceMetadata(partialMetadata, sourceType);
 }
 
+// Curated set of connectors relevant to a personal, daily-use assistant
+// (email, drive, notes, chat, web, files). Add/remove entries here to adjust
+// which sources show up on the Add Connector page.
+const PERSONAL_USE_SOURCE_ALLOWLIST: ValidSources[] = [
+  "gmail",
+  "google_drive",
+  "notion",
+  "slack",
+  "web",
+  "file",
+];
+
 export function listSourceMetadata(): SourceMetadata[] {
   /* This gives back all the viewable / common sources, primarily for
   display in the Add Connector page */
@@ -483,7 +495,8 @@ export function listSourceMetadata(): SourceMetadata[] {
         // use the "regular" slack connector when listing
         source !== "federated_slack" &&
         // user_file is for internal use (projects), not the Add Connector page
-        source !== "user_file"
+        source !== "user_file" &&
+        PERSONAL_USE_SOURCE_ALLOWLIST.includes(source as ValidSources)
     )
     .map(([source, metadata]) => {
       return fillSourceMetadata(metadata, source as ValidSources);
