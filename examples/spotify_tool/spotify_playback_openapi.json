@@ -1,0 +1,99 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Spotify Playback Control",
+    "description": "Lets the OpenNex assistant search for and control music playback on the user's Spotify account.",
+    "version": "1.0.0"
+  },
+  "servers": [{ "url": "https://api.spotify.com" }],
+  "paths": {
+    "/v1/search": {
+      "get": {
+        "operationId": "searchSpotify",
+        "summary": "Search Spotify for a track, album, artist, or playlist by name.",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "The search query, e.g. the song or playlist name."
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["track", "album", "artist", "playlist"]
+            },
+            "description": "The type of item to search for."
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "default": 5 },
+            "description": "Max number of results to return."
+          }
+        ],
+        "responses": { "200": { "description": "Search results" } }
+      }
+    },
+    "/v1/me/player/play": {
+      "put": {
+        "operationId": "startOrResumePlayback",
+        "summary": "Start or resume playback of a specific track, album, or playlist (or resume whatever was last playing if no body is given).",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "context_uri": {
+                    "type": "string",
+                    "description": "Spotify URI of the album/playlist/artist to play, e.g. 'spotify:playlist:37i9dQZF1DXcBWIGoYBM5M'."
+                  },
+                  "uris": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "List of Spotify track URIs to play, e.g. ['spotify:track:4uLU6hMCjMI75M1A2tKUQC']."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "204": { "description": "Playback started" } }
+      }
+    },
+    "/v1/me/player/pause": {
+      "put": {
+        "operationId": "pausePlayback",
+        "summary": "Pause playback on the user's active Spotify device.",
+        "responses": { "204": { "description": "Playback paused" } }
+      }
+    },
+    "/v1/me/player/next": {
+      "post": {
+        "operationId": "skipToNextTrack",
+        "summary": "Skip to the next track in the user's queue.",
+        "responses": { "204": { "description": "Skipped to next track" } }
+      }
+    },
+    "/v1/me/player/previous": {
+      "post": {
+        "operationId": "skipToPreviousTrack",
+        "summary": "Skip to the previous track in the user's queue.",
+        "responses": { "204": { "description": "Skipped to previous track" } }
+      }
+    },
+    "/v1/me/player/currently-playing": {
+      "get": {
+        "operationId": "getCurrentlyPlayingTrack",
+        "summary": "Get the track currently being played on the user's Spotify account.",
+        "responses": { "200": { "description": "Currently playing track info" } }
+      }
+    }
+  }
+}

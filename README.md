@@ -25,10 +25,10 @@
   </a>
 </p>
 
-# Onyx - The Open Source AI Platform
+# OpenNex - Your Personal AI Assistant
 
-**[Onyx](https://www.onyx.app/?utm_source=onyx_repo&utm_medium=github&utm_campaign=readme)** is the application layer for LLMs - bringing a feature-rich interface that can be easily hosted by anyone.
-Onyx enables LLMs through advanced capabilities like RAG, web search, code execution, file creation, deep research and more.
+**OpenNex** (a fork of [Onyx](https://www.onyx.app/?utm_source=onyx_repo&utm_medium=github&utm_campaign=readme)) is a personal AI assistant for daily use - bringing a feature-rich interface that can be easily self-hosted.
+OpenNex enables LLMs through advanced capabilities like RAG, web search, code execution, file creation, deep research and more.
 
 Connect your applications with over 50+ indexing based connectors provided out of the box or via MCP.
 

@@ -1478,6 +1478,22 @@ INSTANCE_TYPE = (
 DISCORD_BOT_TOKEN = os.environ.get("DISCORD_BOT_TOKEN")
 DISCORD_BOT_INVOKE_CHAR = os.environ.get("DISCORD_BOT_INVOKE_CHAR", "!")
 
+## Telegram Bot Configuration
+# Bot token from BotFather (required to enable the bot)
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
+# Personal Onyx API key used by the bot — generate one at /admin/api-key
+TELEGRAM_BOT_API_KEY = os.environ.get("TELEGRAM_BOT_API_KEY")
+# Comma-separated Telegram chat/user IDs allowed to use the bot (privacy control)
+# e.g. "123456789,987654321". If empty, ALL chats can use the bot (not recommended).
+TELEGRAM_ALLOWED_CHAT_IDS_STR = os.environ.get("TELEGRAM_ALLOWED_CHAT_IDS", "")
+TELEGRAM_ALLOWED_CHAT_IDS: set[int] = {
+    int(cid.strip())
+    for cid in TELEGRAM_ALLOWED_CHAT_IDS_STR.split(",")
+    if cid.strip()
+}
+# Persona/assistant ID to use for Telegram chats (default 0 = OpenNex default assistant)
+TELEGRAM_PERSONA_ID = int(os.environ.get("TELEGRAM_PERSONA_ID", "0"))
+
 
 ## Stripe Configuration
 # URL to fetch the Stripe publishable key from a public S3 bucket.
